@@ -1,0 +1,10 @@
+{
+  "description": "This web application offers a modern interface for users to manage tasks efficiently, featuring a cohesive design that enhances productivity and user experience.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
