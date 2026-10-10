@@ -52,6 +52,7 @@ html,
 body,
 #root {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -60,6 +61,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
+  scrollbar-width: none;
 }
 
 h1,
@@ -69,11 +71,14 @@ h4 {
   font-family: var(--font-display);
 }
 
-/* Hide scrollbars until scrolling (per craft guidance) */
 .scroll-area {
   scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-.scroll-area::-webkit-scrollbar {
+.scroll-area::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
   width: 0;
   height: 0;
 }

@@ -1,9 +1,10 @@
 export type StylistView =
   | 'profile'
   | 'palette'
-  | 'cultural'
+  | 'trends'
   | 'occasion'
   | 'wardrobe'
   | 'tryon'
   | 'skinprep'
+  | 'looks'
   | 'aifeature'

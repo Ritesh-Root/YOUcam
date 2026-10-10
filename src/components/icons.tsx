@@ -124,3 +124,41 @@ export const ArrowDown = (p: IconProps) => (
     <path d="M12 5v14M6 13l6 6 6-6" />
   </svg>
 )
+
+export const BottleIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M10 3h4v2l1 2v12a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V7l1-2V3Z" />
+    <path d="M9 11h6" />
+  </svg>
+)
+
+export const DressIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M9 4 7 8l-3 2 2 2 1-1 1 9h8l1-9 1 1 2-2-3-2-2-4" />
+    <path d="M9 4c.8 1.2 1.6 1.8 3 1.8S14.2 5.2 15 4" />
+  </svg>
+)
+
+export const ClockIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="13" r="7" />
+    <path d="M12 10v3.5l2 2" />
+    <path d="M8 4.5 6 3M16 4.5 18 3" />
+  </svg>
+)
+
+export const SmileIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="12" cy="12" r="9" />
+    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none" />
+    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none" />
+    <path d="M8.5 14.5c.8 1.2 2 1.8 3.5 1.8s2.7-.6 3.5-1.8" />
+  </svg>
+)
+
+export const LockIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="5" y="11" width="14" height="9" rx="2" />
+    <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+  </svg>
+)

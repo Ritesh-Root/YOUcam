@@ -1,17 +1,17 @@
 import { useRef, useState } from 'react'
 import { Chip, Screen } from '../components/overlay'
 import { PlusIcon } from '../components/icons'
-import { OCCASIONS, fileToDataUrl, useStore } from '../store'
-import type { StylistView } from './routes'
+import { OCCASIONS, useStore } from '../store'
+import { imageToDataUrl } from '../lib/images'
 
 const TYPES = ['Top', 'Bottom', 'Dress', 'Ethnic', 'Outerwear', 'Footwear']
 
 export function Wardrobe({
   onClose,
-  onNavigate,
+  onTryOn,
 }: {
   onClose: () => void
-  onNavigate: (v: StylistView) => void
+  onTryOn: (photo?: string) => void
 }) {
   const store = useStore()
   const [filter, setFilter] = useState('All')
@@ -28,9 +28,17 @@ export function Wardrobe({
       ? store.wardrobe
       : store.wardrobe.filter((w) => w.type === filter)
 
+  const [photoError, setPhotoError] = useState<string>()
   const pick = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhotoError(undefined)
     const f = e.target.files?.[0]
-    if (f?.type.startsWith('image/')) setPhoto(await fileToDataUrl(f))
+    if (!f) return
+    if (!f.type.startsWith('image/')) return setPhotoError('Use a JPEG or PNG photo.')
+    try {
+      setPhoto(await imageToDataUrl(f, 1024))
+    } catch (err) {
+      setPhotoError(err instanceof Error ? err.message : 'Could not read that photo.')
+    }
   }
 
   const add = () => {
@@ -70,7 +78,8 @@ export function Wardrobe({
               </span>
             )}
           </button>
-          <input ref={fileRef} type="file" accept="image/*" onChange={pick} className="hidden" />
+          <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp" onChange={pick} className="hidden" />
+          {photoError && <p role="alert" className="text-xs font-semibold text-[#b3261e]">{photoError}</p>}
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -128,7 +137,7 @@ export function Wardrobe({
             {store.wardrobe.length === 0 ? 'Your wardrobe is empty' : 'Nothing in this filter'}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Upload clothing photos to mix owned pieces with suggested styles.
+            Add photos of clothes you own, then try them on your own photo with YouCam.
           </p>
         </div>
       ) : (
@@ -146,12 +155,16 @@ export function Wardrobe({
                   {w.type} · {OCCASIONS.find((o) => o.id === w.occasion)?.label ?? w.occasion}
                 </p>
                 <div className="mt-2 flex gap-2">
-                  <button
-                    onClick={() => onNavigate('tryon')}
-                    className="rounded-full border border-border px-2.5 py-1 text-xs font-bold text-secondary-foreground"
-                  >
-                    Try On
-                  </button>
+                  {w.photo ? (
+                    <button
+                      onClick={() => onTryOn(w.photo)}
+                      className="rounded-full border border-border px-2.5 py-1 text-xs font-bold text-secondary-foreground"
+                    >
+                      Try on
+                    </button>
+                  ) : (
+                    <span className="text-[11px] text-muted-foreground">Add a photo to try on</span>
+                  )}
                   <button
                     onClick={() => store.removeWardrobe(w.id)}
                     className="ml-auto rounded-full px-2 py-1 text-xs font-bold text-muted-foreground"

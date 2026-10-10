@@ -1,0 +1,13 @@
+{
+  "name": "highlight-stylist",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  }
+  // Secrets (never commit): npx wrangler secret put YOUCAM_API_KEY
+  // Optional live trend signals:  npx wrangler secret put YOUTUBE_API_KEY
+}
