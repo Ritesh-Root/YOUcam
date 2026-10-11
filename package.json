@@ -1,12 +1,18 @@
 {
-  "name": "figma-make-app",
+  "name": "highlight",
   "private": true,
   "version": "1.0.0",
+  "description": "Dress for where you're going: event-city trends with YouCam virtual try-on.",
+  "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
     "format": "oxfmt"
   },
   "dependencies": {
